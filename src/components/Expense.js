@@ -5,7 +5,7 @@ export default function Expense(props) {
     let amount = Number(props.amount).toLocaleString('it-IT', {style : "currency" , currency : 'EUR'});
 
     return (
-        <div>
+        <li>
             <article className="product">
                 <div className="d-flex">
                     <DatePurchase date={props.date} />
@@ -15,6 +15,6 @@ export default function Expense(props) {
                     <div className="expense-item__price">{amount}</div>
                 </div>       
             </article>
-        </div>
+        </li>
     );
 }

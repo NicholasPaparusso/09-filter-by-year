@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Expense from "./Expense";
+import ExpensesList from "./ExpensesList";
 import ExpensesFilter from "./ExpensesFilter";
 
 const Expenses = (props) =>{
@@ -20,16 +20,10 @@ const Expenses = (props) =>{
         
     }
 
-
     let expensesFiltered = props.data.filter( (item) => {
       return item.date.getFullYear() === new Date(enteredYear).getFullYear()
     } ) 
   
- 
-
-
-
-    // console.log(expensesFiltered)
     return (
         <div>
 
@@ -41,19 +35,43 @@ const Expenses = (props) =>{
                 Data for years {infoDate} is hidden.
               </p>
             </div>
+            
+            <ExpensesList expenses={expensesFiltered} />
 
-              {expensesFiltered.map((item) => {
-                return(
-                      <Expense
-                      key={item.id}//Strettamente necessario per migliorare le prestazioni e non riscontrare bug nel rendering di un array, si potrebbe utilizzare l'index dell'array.map , ma non essendo strettamente collegato all'item dell'array che vogliamo vedere in pagina , può causare bug.
-                      title={item.title}
-                      amount={item.amount}
-                      date={item.date}
-                      />
-                      )
-              } )}
-  
-  
+            {/* metodo con espressione ternaria 
+
+              {expensesFiltered.length === 0 ? <p>No expenses found.</p> : (
+                  expensesFiltered.map((item) => {
+                  return(   
+                    <Expense
+                          key={item.id}//Strettamente necessario per migliorare le prestazioni e non riscontrare bug nel rendering di un array, si potrebbe utilizzare l'index dell'array.map , ma non essendo strettamente collegato all'item dell'array che vogliamo vedere in pagina , può causare bug.
+                          title={item.title}
+                          amount={item.amount}
+                          date={item.date}
+                          />
+                          )
+                  } )
+              )}
+              */}
+
+            {/* metodo con JS shortcut
+            
+              {expensesFiltered.length === 0 && <p className="conform-padding text-white">No expenses found.</p>}
+              {expensesFiltered.length > 0 && (
+                expensesFiltered.map((item) => {
+                  return(   
+                    <Expense
+                          key={item.id}//Strettamente necessario per migliorare le prestazioni e non riscontrare bug nel rendering di un array, si potrebbe utilizzare l'index dell'array.map , ma non essendo strettamente collegato all'item dell'array che vogliamo vedere in pagina , può causare bug.
+                          title={item.title}
+                          amount={item.amount}
+                          date={item.date}
+                          />
+                          )
+                  }) 
+                )                
+
+              }
+            */}
         </div>
       </div>  
     )
